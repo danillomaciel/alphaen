@@ -21,7 +21,7 @@ public class Dao {
 
     public void abrirBanco() throws Exception {
         Class.forName("org.hsqldb.jdbcDriver");
-
+//teste para saber se o git pega
         
         String url = "jdbc:hsqldb:file:E:/Meus Documentos/Meus Arquivos/projetoNetbeans/aplhaenglish/bd_alphaenalphaen";
         String user = "SA";
