@@ -1,0 +1,2 @@
+/*C2*/SET SCHEMA PUBLIC
+CREATE TABLE frase(\u000aid IDENTITY primary key,\u000afPortugues varchar(50),\u000afIngles varchar(50),\u000anomeLivro varchar(50),\u000aunidLIvro varchar(50)\u000a)
