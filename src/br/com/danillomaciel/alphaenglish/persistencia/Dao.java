@@ -23,7 +23,7 @@ public class Dao {
         Class.forName("org.hsqldb.jdbcDriver");
 //teste para saber se o git pega
         
-        String url = "jdbc:hsqldb:file:E:/Meus Documentos/Meus Arquivos/projetoNetbeans/aplhaenglish/bd_alphaenalphaen";
+        String url = "jdbc:hsqldb:file:E:/Meus Documentos/Meus Arquivos/projetoNetbeans/aplhaenglish/bd_alphaen/alphaen";
         String user = "SA";
         String password = "";
         con = DriverManager.getConnection(url, user, password);

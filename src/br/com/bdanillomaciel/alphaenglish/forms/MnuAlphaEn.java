@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MnuAlphaEn extends javax.swing.JInternalFrame {
 
-    DefaultTableModel tmFrase = new DefaultTableModel(null, new String[]{"Id", "Português", "Inglês", "Nome do Livro", "Lição ou Unidade"});
+    DefaultTableModel tmFrase = new DefaultTableModel(null, new String[]{"Id", "Português", "Inglês", "Nome do Livro", "Lição ou Unidade", "Tipo da Frase"});
     List<Frase> frases;
     ListSelectionModel lsmFrase;
 
@@ -60,6 +60,8 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
         txtNomeLivro = new javax.swing.JTextField();
         lblUnidLivro = new javax.swing.JLabel();
         txtUnidLivro = new javax.swing.JTextField();
+        cbTipoFrase = new javax.swing.JComboBox();
+        lblNomeLivro1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -119,31 +121,44 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
             }
         });
 
+        cbTipoFrase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afirmativa", "Negativa", "Pergunta" }));
+        cbTipoFrase.setName("cbTipoFrase"); // NOI18N
+        cbTipoFrase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoFraseActionPerformed(evt);
+            }
+        });
+
+        lblNomeLivro1.setText("Escolha o tipo da frase:");
+        lblNomeLivro1.setName("lblTipoFrase"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPt)
                             .addComponent(lblEn)
                             .addComponent(lblNomeLivro))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPt, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
-                            .addComponent(txtEn, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNomeLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblUnidLivro)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtUnidLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(3, 3, 3)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNomeLivro1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPt, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                    .addComponent(txtEn, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbTipoFrase, javax.swing.GroupLayout.Alignment.LEADING, 0, 231, Short.MAX_VALUE)
+                            .addComponent(txtNomeLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblUnidLivro)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtUnidLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,7 +166,9 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(txtEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -164,10 +181,14 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                     .addComponent(lblNomeLivro)
                     .addComponent(txtUnidLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUnidLivro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbTipoFrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNomeLivro1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        cbTipoFrase.getAccessibleContext().setAccessibleName("");
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -298,17 +319,6 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblPesquisar)
-                        .addGap(38, 38, 38)
-                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPesquisar))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(137, 137, 137)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(180, Short.MAX_VALUE))
@@ -316,6 +326,17 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblPesquisar)
+                        .addGap(38, 38, 38)
+                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisar)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,10 +348,10 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                     .addComponent(btnPesquisar))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -376,6 +397,8 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
             txtEn.setText(frases.get(tabela.getSelectedRow()).getfIngles());
             txtNomeLivro.setText(frases.get(tabela.getSelectedRow()).getNomeLivro());
             txtUnidLivro.setText(frases.get(tabela.getSelectedRow()).getUnidLivro());
+            cbTipoFrase.setSelectedItem(frases.get(tabela.getSelectedRow()).getTipoFrase());
+          
 
 
         } else {
@@ -486,6 +509,10 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
         listarFrases();
     }//GEN-LAST:event_btnPesquisarKeyPressed
 
+private void cbTipoFraseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoFraseActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_cbTipoFraseActionPerformed
+
     public void salvar() {
         if (verDados()) {
             cadastrar();
@@ -514,6 +541,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
         txtEn.setEditable(false);
         txtNomeLivro.setEditable(false);
         txtUnidLivro.setEditable(false);
+        cbTipoFrase.enable(false);
     }
 
     private void habilitaDados() {
@@ -521,6 +549,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
         txtEn.setEditable(true);
         txtNomeLivro.setEditable(true);
         txtUnidLivro.setEditable(true);
+        cbTipoFrase.enable(true);
     }
 
     public void cadastrar() {
@@ -530,6 +559,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
             f.setfIngles(txtEn.getText());
             f.setNomeLivro(txtNomeLivro.getText());
             f.setUnidLivro(txtUnidLivro.getText());
+            f.setTipoFrase((String) (cbTipoFrase.getSelectedItem()));
             FraseDao fd = new FraseDao();
             fd.gravar(f);
         } catch (Exception ex) {
@@ -559,11 +589,13 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox cbTipoFrase;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEn;
     private javax.swing.JLabel lblNomeLivro;
+    private javax.swing.JLabel lblNomeLivro1;
     private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblPt;
     private javax.swing.JLabel lblUnidLivro;
@@ -591,6 +623,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                 tmFrase.setValueAt(frases.get(i).getfIngles(), i, 2);
                 tmFrase.setValueAt(frases.get(i).getNomeLivro(), i, 3);
                 tmFrase.setValueAt(frases.get(i).getUnidLivro(), i, 4);
+                tmFrase.setValueAt(frases.get(i).getTipoFrase(), i, 5);
 
 
 
@@ -612,6 +645,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                 f.setfIngles(txtEn.getText());
                 f.setNomeLivro(txtNomeLivro.getText());
                 f.setUnidLivro(txtUnidLivro.getText());
+                f.setTipoFrase(cbTipoFrase.getToolTipText());
                 fd.altera(f);
                 JOptionPane.showMessageDialog(null, "Contato alterado com sucesso!");
             }

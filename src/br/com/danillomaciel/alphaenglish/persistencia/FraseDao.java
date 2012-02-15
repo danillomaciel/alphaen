@@ -8,11 +8,12 @@ public class FraseDao extends Dao {
 
     public void gravar(Frase f) throws Exception {
         abrirBanco();
-        pstmt = con.prepareStatement("INSERT INTO frase values(null, ?, ?,?,?)");
+        pstmt = con.prepareStatement("INSERT INTO frase values(null, ?, ?,?,?,?)");
         pstmt.setString(1, f.getfPortugues());
         pstmt.setString(2, f.getfIngles());
         pstmt.setString(3, f.getNomeLivro());
         pstmt.setString(4, f.getUnidLivro());
+        pstmt.setString(5, f.getTipoFrase());
         pstmt.execute();
         fecharBanco();
     }
@@ -32,6 +33,7 @@ public class FraseDao extends Dao {
             f.setfIngles(rs.getString("fIngles"));
             f.setNomeLivro(rs.getString("nomeLivro"));
             f.setUnidLivro(rs.getString("unidLivro"));
+            f.setTipoFrase(rs.getString("tipoFrase"));
         }
         fecharBanco();
         return f;
@@ -53,6 +55,7 @@ public class FraseDao extends Dao {
             f.setfIngles(rs.getString("fIngles"));
             f.setNomeLivro(rs.getString("nomeLivro"));
             f.setUnidLivro(rs.getString("unidLivro"));
+            f.setTipoFrase(rs.getString("tipoFrase"));
             listaNomes.add(f);
         }
         fecharBanco();
@@ -64,21 +67,19 @@ public class FraseDao extends Dao {
         abrirBanco();
         String query = null;
 
-       if((!nome.equals("")) && (!unidade.equals(""))){
-           query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? and unidLivro  LIKE ? order by RAND()";
-         pstmt = con.prepareStatement(query);
-        pstmt.setString(1, nome);
-       pstmt.setString(2, unidade);
+        if ((!nome.equals("")) && (!unidade.equals(""))) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? and unidLivro  LIKE ? order by RAND()";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, nome);
+            pstmt.setString(2, unidade);
+        } else if ((!nome.equals("")) && (unidade.equals(""))) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? order by RAND()";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, nome);
+        } else {
+            query = "SELECT fPortugues, fIngles FROM frase order by RAND()";
+            pstmt = con.prepareStatement(query);
         }
-       else if((!nome.equals("")) && (unidade.equals(""))){
-                query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? order by RAND()";
-                 pstmt = con.prepareStatement(query);
-        pstmt.setString(1, nome);
-        }
-       else{
-             query = "SELECT fPortugues, fIngles FROM frase order by RAND()";
-                 pstmt = con.prepareStatement(query);
-       }
         rs = pstmt.executeQuery();
 
         Frase f = new Frase();
@@ -104,13 +105,14 @@ public class FraseDao extends Dao {
     public void altera(Frase f) throws Exception {
 
         abrirBanco();
-        String query = "UPDATE frase set fPortugues = ?, fIngles = ?, nomeLivro = ?, unidLivro = ?  WHERE "
+        String query = "UPDATE frase set fPortugues = ?, fIngles = ?, nomeLivro = ?, unidLivro = ?, tipoLivro = ? WHERE "
                 + "id = ?";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, f.getfPortugues());
         pstmt.setString(2, f.getfIngles());
         pstmt.setString(3, f.getNomeLivro());
         pstmt.setString(4, f.getUnidLivro());
+        pstmt.setString(4, f.getTipoFrase());
         pstmt.setInt(5, f.getId());
         pstmt.executeUpdate();
 

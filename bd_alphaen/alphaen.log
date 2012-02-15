@@ -1,2 +1,6 @@
-/*C2*/SET SCHEMA PUBLIC
-CREATE TABLE frase(\u000aid IDENTITY primary key,\u000afPortugues varchar(50),\u000afIngles varchar(50),\u000anomeLivro varchar(50),\u000aunidLIvro varchar(50)\u000a)
+/*C6*/SET SCHEMA PUBLIC
+INSERT INTO FRASE VALUES(6,'a','a','a','a','Negativa')
+COMMIT
+DISCONNECT
+/*C7*/SET SCHEMA PUBLIC
+DISCONNECT

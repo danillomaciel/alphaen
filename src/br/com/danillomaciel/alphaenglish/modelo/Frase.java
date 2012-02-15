@@ -6,6 +6,7 @@ public class Frase {
     private String fIngles;
     private String nomeLivro;
     private String unidLivro;
+    private String tipoFrase;
 
     /**
      * @return the id
@@ -77,6 +78,22 @@ public class Frase {
     public void setUnidLivro(String unidLivro) {
         this.unidLivro = unidLivro;
     }
+
+    /**
+     * @return the tipoFrase
+     */
+    public String getTipoFrase() {
+        return tipoFrase;
+    }
+
+    /**
+     * @param tipoFrase the tipoFrase to set
+     */
+    public void setTipoFrase(String tipoFrase) {
+        this.tipoFrase = tipoFrase;
+    }
+    
+    
 
 
 
