@@ -14,6 +14,7 @@
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Cursor Default"/>
     </Property>
+    <Property name="enabled" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -73,7 +74,7 @@
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="159" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="161" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -116,9 +117,14 @@
                               <Component id="txtNomeLivro" alignment="1" pref="231" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblUnidLivro" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtUnidLivro" min="-2" pref="97" max="-2" attributes="1"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lblUnidLivro" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="txtUnidLivro" min="-2" pref="97" max="-2" attributes="1"/>
+                              </Group>
+                              <Component id="cbNomeLivro" max="32767" attributes="1"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -150,10 +156,18 @@
                       <Component id="txtUnidLivro" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblUnidLivro" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbTipoFrase" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblNomeLivro1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbTipoFrase" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNomeLivro1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbNomeLivro" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -215,10 +229,11 @@
         <Component class="javax.swing.JComboBox" name="cbTipoFrase">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="4">
                 <StringItem index="0" value="Afirmativa"/>
-                <StringItem index="1" value="Negativa"/>
-                <StringItem index="2" value="Pergunta"/>
+                <StringItem index="1" value="Interrogativa"/>
+                <StringItem index="2" value="Negativa"/>
+                <StringItem index="3" value="Palavra"/>
               </StringArray>
             </Property>
             <Property name="name" type="java.lang.String" value="cbTipoFrase" noResource="true"/>
@@ -235,6 +250,16 @@
             <Property name="text" type="java.lang.String" value="Escolha o tipo da frase:"/>
             <Property name="name" type="java.lang.String" value="lblTipoFrase" noResource="true"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbNomeLivro">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNomeLivroActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

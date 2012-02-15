@@ -12,6 +12,7 @@ package br.com.bdanillomaciel.alphaenglish.forms;
 
 import br.com.danillomaciel.alphaenglish.visao.Principal;
 import br.com.danillomaciel.alphaenglish.modelo.Frase;
+import br.com.danillomaciel.alphaenglish.persistencia.Dao;
 import br.com.danillomaciel.alphaenglish.persistencia.FraseDao;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,9 +37,21 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
     /** Creates new form MnuAlphaEn */
     public MnuAlphaEn() {
         initComponents();
+        adicionaItensCombo();
+          
         //  listaLivros();
         desabilitaDados();
 
+    }
+    public final void adicionaItensCombo(){
+          FraseDao fraseDao = new FraseDao();  
+
+        try {
+            cbNomeLivro.setSelectedItem(fraseDao.getLista());
+            
+        } catch (Exception ex) {
+            Logger.getLogger(MnuAlphaEn.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -62,6 +75,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
         txtUnidLivro = new javax.swing.JTextField();
         cbTipoFrase = new javax.swing.JComboBox();
         lblNomeLivro1 = new javax.swing.JLabel();
+        cbNomeLivro = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -78,6 +92,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
         setForeground(java.awt.Color.white);
         setTitle("Cadastrar Frase");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setEnabled(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Frase"));
 
@@ -121,7 +136,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
             }
         });
 
-        cbTipoFrase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afirmativa", "Negativa", "Pergunta" }));
+        cbTipoFrase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afirmativa", "Interrogativa", "Negativa", "Palavra" }));
         cbTipoFrase.setName("cbTipoFrase"); // NOI18N
         cbTipoFrase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +146,12 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
 
         lblNomeLivro1.setText("Escolha o tipo da frase:");
         lblNomeLivro1.setName("lblTipoFrase"); // NOI18N
+
+        cbNomeLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNomeLivroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,9 +177,12 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                             .addComponent(cbTipoFrase, javax.swing.GroupLayout.Alignment.LEADING, 0, 231, Short.MAX_VALUE)
                             .addComponent(txtNomeLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(lblUnidLivro)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtUnidLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblUnidLivro)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtUnidLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbNomeLivro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,10 +205,15 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                     .addComponent(lblNomeLivro)
                     .addComponent(txtUnidLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUnidLivro))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbTipoFrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNomeLivro1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbTipoFrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNomeLivro1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbNomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -351,7 +380,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -398,7 +427,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
             txtNomeLivro.setText(frases.get(tabela.getSelectedRow()).getNomeLivro());
             txtUnidLivro.setText(frases.get(tabela.getSelectedRow()).getUnidLivro());
             cbTipoFrase.setSelectedItem(frases.get(tabela.getSelectedRow()).getTipoFrase());
-          
+
 
 
         } else {
@@ -444,13 +473,13 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-       excluir();
+        excluir();
 
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    public void excluir(){
-         try {
+    public void excluir() {
+        try {
             excluirFrase();
             listarFrases();
         } catch (Exception ex) {
@@ -502,7 +531,7 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirKeyPressed
 
     private void btnSairKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSairKeyPressed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSairKeyPressed
 
     private void btnPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarKeyPressed
@@ -512,6 +541,13 @@ public class MnuAlphaEn extends javax.swing.JInternalFrame {
 private void cbTipoFraseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoFraseActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_cbTipoFraseActionPerformed
+
+private void cbNomeLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNomeLivroActionPerformed
+
+    
+}//GEN-LAST:event_cbNomeLivroActionPerformed
+
+   
 
     public void salvar() {
         if (verDados()) {
@@ -589,6 +625,7 @@ private void cbTipoFraseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox cbNomeLivro;
     private javax.swing.JComboBox cbTipoFrase;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

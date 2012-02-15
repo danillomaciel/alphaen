@@ -45,6 +45,8 @@ public class FraseDao extends Dao {
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, nome);
         rs = pstmt.executeQuery();
+        
+        
 
         Frase f = null;
         List<Frase> listaNomes = new ArrayList<Frase>();
@@ -63,19 +65,70 @@ public class FraseDao extends Dao {
 
     }
 
-    public Frase buscaporRnd(String nome, String unidade) throws Exception {
+    /*
+     * nome, unidade, tipo
+     * 3 * 2 * 1 = 6
+     * nome
+     * unidade
+     * tipo
+     * nome unidade #
+     * nome tipo
+     * unidade tipo
+     * nome, unidade e tipo #
+     * 
+     */
+    public Frase buscaporRnd(String nome, String unidade, String tipoFrase) throws Exception {
         abrirBanco();
         String query = null;
 
-        if ((!nome.equals("")) && (!unidade.equals(""))) {
-            query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? and unidLivro  LIKE ? order by RAND()";
+
+        if ((!nome.equals("")) && (!unidade.equals("")) && (!tipoFrase.equals(""))) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? and unidLivro  LIKE ? and tipoFrase  LIKE ? order by RAND()";
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, nome);
             pstmt.setString(2, unidade);
-        } else if ((!nome.equals("")) && (unidade.equals(""))) {
+            pstmt.setString(3, tipoFrase);
+
+            //nome unidade
+        } else if ((!nome.equals("")) && (!unidade.equals(""))) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? and unidLivro Like ?  order by RAND()";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, nome);
+            pstmt.setString(2, unidade);
+
+            //unidade tipo    
+        } else if ((!unidade.equals("")) && (!tipoFrase.equals(""))) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE unidLivro Like ? and tipoFrase Like ?  order by RAND()";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, unidade);
+            pstmt.setString(2, tipoFrase);
+
+            //nome tipo
+        } else if ((!nome.equals("")) && (!tipoFrase.equals(""))) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? and tipoFrase Like ?  order by RAND()";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, nome);
+            pstmt.setString(2, tipoFrase);
+
+            //tipo
+        } else if (!tipoFrase.equals("")) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE tipoFrase Like ? order by RAND()";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, tipoFrase);
+
+            //unidade
+        } else if (!unidade.equals("")) {
+            query = "SELECT fPortugues, fIngles FROM frase WHERE unidLivro Like ? order by RAND()";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, unidade);
+
+            //nome
+        } else if (!nome.equals("")) {
             query = "SELECT fPortugues, fIngles FROM frase WHERE nomeLivro Like ? order by RAND()";
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, nome);
+
+            //outros
         } else {
             query = "SELECT fPortugues, fIngles FROM frase order by RAND()";
             pstmt = con.prepareStatement(query);
@@ -118,6 +171,32 @@ public class FraseDao extends Dao {
 
         fecharBanco();
 
+
+
+    }
+    
+   
+     public List<Frase> getLista() throws Exception {
+        abrirBanco();
+        String query = "SELECT DISTINCT nomeLivro FROM frase";
+        pstmt = con.prepareStatement(query);
+        //pstmt.setString(1, nomeLivro);
+        rs = pstmt.executeQuery();
+ 
+        Frase f = null;
+        List<Frase> listaCampoNomeLivro = new ArrayList<Frase>();
+        while (rs.next()) {
+            f = new Frase();
+           // f.setId(rs.getInt("id"));
+           // f.setfPortugues(rs.getString("fPortugues"));
+           // f.setfIngles(rs.getString("fIngles"));
+            f.setNomeLivro(rs.getString("nomeLivro"));
+          //  f.setUnidLivro(rs.getString("unidLivro"));
+          //  f.setTipoFrase(rs.getString("tipoFrase"));
+            listaCampoNomeLivro.add(f);
+        }
+        fecharBanco();
+        return listaCampoNomeLivro;
 
 
     }
